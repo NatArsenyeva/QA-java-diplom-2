@@ -2,6 +2,7 @@ package user;
 
 import common.base.BaseSpec;
 import common.config.ApiConfig;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import org.aeonbits.owner.ConfigFactory;
 import org.apache.http.HttpStatus;
@@ -18,6 +19,7 @@ public class UserMethods extends BaseSpec {
     public static final String LOGIN_PATH = ConfigFactory.create(ApiConfig.class).getApiLoginUrl();
     public static final String USER_PATH = ConfigFactory.create(ApiConfig.class).getApiUserUrl();
 
+    @Step("Отправить POST запрос на регистрацию пользователя.")
     public ValidatableResponse register(RegisterUserRq user){
         return given()
                 .spec(getBaseSpec())
@@ -27,6 +29,7 @@ public class UserMethods extends BaseSpec {
                 .then();
     }
 
+    @Step("Отправить POST запрос на регистрацию и проверить значение 'success'.")
     public boolean isRegistered(RegisterUserRq user){
         return register(user)
                 .statusCode(HttpStatus.SC_OK)
@@ -35,6 +38,7 @@ public class UserMethods extends BaseSpec {
                 .equals(true);
     }
 
+    @Step("Отправить POST запрос на авторизацию пользователя.")
     public ValidatableResponse login(LoginUserRq login){
         return given()
                 .spec(getBaseSpec())
@@ -44,6 +48,7 @@ public class UserMethods extends BaseSpec {
                 .then();
     }
 
+    @Step("Отправить POST запрос на авторизацию пользователя и вернуть ответ на запрос.")
     public RegisterLoginUserRs isLogged(LoginUserRq login){
         return login(login)
                 .statusCode(HttpStatus.SC_OK)
@@ -51,6 +56,7 @@ public class UserMethods extends BaseSpec {
                 .as(RegisterLoginUserRs.class);
     }
 
+    @Step("Отправить PATCH запрос с токеном на обновление пользователя.")
     public ValidatableResponse updateUserData(UpdateUserRq userData, String token)  {
            return given()
                    .spec(getBaseSpec())
@@ -60,6 +66,7 @@ public class UserMethods extends BaseSpec {
                    .then();
     }
 
+    @Step("Отправить PATCH запрос без токена на обновление пользователя.")
     public ValidatableResponse updateUserData(UpdateUserRq userData)  {
         return given()
                 .spec(getBaseSpec())
@@ -68,6 +75,7 @@ public class UserMethods extends BaseSpec {
                 .then();
     }
 
+    @Step("Отправить DELETE запрос на удаление пользователя.")
     public void deleteUser() {
         if (Tokens.getAccessToken() == null) {
             return;
@@ -80,20 +88,5 @@ public class UserMethods extends BaseSpec {
                 .then()
                 .statusCode(202);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
