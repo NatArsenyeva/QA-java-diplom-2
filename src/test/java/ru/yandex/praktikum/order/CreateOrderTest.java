@@ -1,7 +1,8 @@
-package order;
+package ru.yandex.praktikum.order;
 
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.path.xml.XmlPath;
+import order.OrderMethods;
 import order.requests.CreateOrderRq;
 import order.responses.CreateOrderNotAuthRs;
 import org.apache.http.HttpStatus;

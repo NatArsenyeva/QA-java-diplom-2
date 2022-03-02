@@ -1,4 +1,4 @@
-package user;
+package ru.yandex.praktikum.user;
 
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.http.HttpStatus;
@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import common.ErrorRs;
+import user.UserMethods;
 import user.requests.RegisterUserRq;
 import user.responses.RegisterLoginUserRs;
 
